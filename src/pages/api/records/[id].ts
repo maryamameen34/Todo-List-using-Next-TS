@@ -36,14 +36,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           return res.status(404).json({ success: false });
         }
         res.status(200).json({ success: true, data: updatedRecord });
-      } catch (error) {
+      } catch (error:any) {
         console.error('Error updating record:', error);
         res.status(400).json({ success: false, err: error.message });
       }
       break;
     case 'DELETE':
       try {
-        const deletedRecord = await Record.deleteOne({ _id: mongoose.Types.ObjectId(id) });
+        const deletedRecord = await Record.findByIdAndDelete(id);
         if (!deletedRecord) {
           return res.status(404).json({ success: false });
         }
