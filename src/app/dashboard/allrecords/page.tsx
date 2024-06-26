@@ -5,14 +5,32 @@ import axios from "axios";
 import Header from "@/components/Header";
 import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
+import { CiEdit } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
+import { GrFormPrevious } from "react-icons/gr";
+import { GrNext } from "react-icons/gr";
 
 const Home = () => {
-  const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [records, setRecords] = useState([]);
 
+  const handleDelete = async (record) => {
+    const confirmed = window.confirm(`Are you sure you want to delete record with ID ${record._id}?`);
+
+    if (confirmed) {
+      try {
+        await axios.delete(`/api/records/${record._id}`);
+        setRecords(records.filter((r) => r._id !== record._id));
+        alert('Record deleted successfully'); // Optional: Show a success message
+      } catch (error) {
+        console.error('Error deleting record:', error);
+        alert('Failed to delete record'); // Optional: Show an error message
+      }
+    }
+  };
   useEffect(() => {
     const fetchRecords = async () => {
       setLoading(true);
@@ -66,20 +84,15 @@ const Home = () => {
                     <td className="py-2 px-4 border-b">
                       <Link href={`/edit/${record._id}`}>
                         <button className="bg-blue-500 text-white px-2 py-1 rounded mr-2">
-                          Edit
+                          <CiEdit />
                         </button>
                       </Link>
                       <button
-                        onClick={async () => {
-                          await axios.delete(`/api/records/${record._id}`);
-                          setRecords(
-                            records.filter((r: any) => r._id !== record._id)
-                          );
-                        }}
-                        className="bg-red-500 text-white px-2 py-1 rounded"
-                      >
-                        Delete
-                      </button>
+      onClick={() => handleDelete(record)}
+      className="bg-red-500 text-white px-2 py-1 rounded"
+    >
+      <MdDelete />
+    </button>
                     </td>
                   </tr>
                 ))}
@@ -92,16 +105,16 @@ const Home = () => {
               <button
                 onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
                 hidden={page === 1}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2"
+                className="px-3 py-2 bg-gray-200 text-black rounded-full mr-2 hover:-translate-y-1"
               >
-                Previous
+                <GrFormPrevious />
               </button>
               <span className="px-4 py-2">Page {page}</span>
               <button
                 onClick={() => setPage((prev) => prev + 1)}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg ml-2"
+                className="px-3 py-2 bg-gray-200 text-black rounded-full mr-2 hover:-translate-y-1"
               >
-                Next
+                <GrNext />
               </button>
             </div>
           </div>

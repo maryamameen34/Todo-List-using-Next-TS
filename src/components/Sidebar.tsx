@@ -6,10 +6,11 @@ import Link from "next/link";
 import { CgAdd, CgProfile } from "react-icons/cg";
 import { BiDetail } from "react-icons/bi";
 import { SiWelcometothejungle } from "react-icons/si";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaSignOutAlt } from "react-icons/fa";
 
 export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [loading , setLoading] = useState(false)
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -51,6 +52,15 @@ export default function Sidebar() {
             </li>
             <li>
               <a
+                href="/"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+               <FaHome className="text-xl font-bold " />
+                <span className="ms-3">Home</span>
+              </a>
+            </li>
+            <li>
+              <a
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
@@ -87,20 +97,7 @@ export default function Sidebar() {
                 <span className="flex-1 ms-3 whitespace-nowrap">Records</span>
               </Link>
             </li>
-            <li>
-              <div className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <CgProfile className="text-2xl" />
-                <div className="flex-1 ms-3 whitespace-nowrap">
-                  {" "}
-                  <SignedOut>
-                <SignInButton />
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-                </div>
-              </div>
-            </li>
+
           </ul>
         </div>
       </aside>

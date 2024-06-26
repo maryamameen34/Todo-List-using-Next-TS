@@ -1,7 +1,13 @@
-import Edit from "../../components/Edit"
-
+import Sidebar from "@/components/Sidebar";
+import Edit from "../../components/Edit";
+import './../../app/globals.css'
 const EditPage = () => {
-  return < Edit/>;
+  return(
+   <div className="flex flex-row">
+    <Edit />
+  </div>
+  )
+  
 };
 
 export default EditPage;

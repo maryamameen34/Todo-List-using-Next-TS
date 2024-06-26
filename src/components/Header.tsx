@@ -3,6 +3,10 @@
 import { useState } from 'react';
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import Link from "next/link";
+import { FaHome } from "react-icons/fa";
+import { AiFillDashboard } from "react-icons/ai";
+import { CgProductHunt } from "react-icons/cg";
+
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,13 +21,13 @@ export default function Header() {
           <div className={`md:static absolute ${menuOpen ? 'top-[11%] left-0 transition-6000' : 'top-[-100%]'} md:min-h-fit bg-white min-h-[50vh] md:w-auto w-full flex items-center px-5 border md:border-none transition-all duration-300`}>
             <ul className="flex md:flex-row flex-col transition md:items-center md:gap-[2vw] gap-8">
               <li>
-                <Link className="hover:text-gray-500" href="/">Home</Link>
+                <Link className="hover:text-gray-500 flex items-center" href="/" ><FaHome className='mr-1 text-lg'/> Home</Link>
               </li>
               <li>
-                <Link className="hover:text-gray-500" href="">Products</Link>
+                <Link className="hover:text-gray-500 flex items-center" href=""><CgProductHunt className='mr-1 text-lg'/> Products</Link>
               </li>
               <li>
-                <Link className="hover:text-gray-500" href="/dashboard">Dashboard</Link>
+                <Link className="hover:text-gray-500 flex items-center" href="/dashboard"><AiFillDashboard className='mr-1 text-lg'/>  Dashboard</Link>
               </li>
             </ul>
            
